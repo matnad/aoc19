@@ -25,8 +25,11 @@ class Intcomp():
         self.set(code=self.orig_code, pointer=0, base=0)
         self.out = []
 
-    def run(self, inp: int = 0):
+    def run(self, inp: int = 0, halt_after=-1):
+        self.out = []
         while self.code[self.ip] != 99:
+            if 0 < halt_after <= len(self.out):
+                return self.out
             modes = [int(x) for x in f"{self.code[self.ip]:0>5}"[:3]][::-1]
             instruction = int(f"{self.code[self.ip]:0>5}"[3:])
             operands = [0 for _ in range(self.num_of_operands[instruction])]
@@ -61,15 +64,16 @@ class Intcomp():
             self.ip += self.num_of_operands[instruction] + 1
 
 
-puzzle = Puzzle(year=2019, day=9)
-in9 = [int(x) for x in puzzle.input_data.split(',')]
+if __name__ == "__main__":
+    puzzle = Puzzle(year=2019, day=9)
+    in9 = [int(x) for x in puzzle.input_data.split(',')]
 
-prog = Intcomp(code=in9)
-prog.run(1)
-print(prog.out, prog.out[-1])
-# puzzle.answer_a = proga.out[-1]
+    prog = Intcomp(code=in9)
+    prog.run(1)
+    print(prog.out, prog.out[-1])
+    # puzzle.answer_a = proga.out[-1]
 
-prog.reset()
-prog.run(2)
-print(prog.out, prog.out[-1])
-# puzzle.answer_b = prog.out[-1]
+    prog.reset()
+    prog.run(2)
+    print(prog.out, prog.out[-1])
+    # puzzle.answer_b = prog.out[-1]
