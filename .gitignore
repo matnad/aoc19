@@ -2,3 +2,7 @@
 aoc/
 
 .idea/
+
+venv/
+
+*.pyc
