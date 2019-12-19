@@ -1,6 +1,7 @@
 from collections import defaultdict
 from aocd.models import Puzzle
 
+
 class Intcomp():
     def __init__(self, code: list):
         self.code = None
@@ -25,8 +26,11 @@ class Intcomp():
         self.set(code=self.orig_code, pointer=0, base=0)
         self.out = []
 
-    def run(self, inp: int = 0, halt_after=-1):
+    def run(self, inp: tuple = None, halt_after=-1):
         self.out = []
+        if inp is None:
+            inp = (0,)
+        inp_i = 0
         while self.code[self.ip] != 99:
             if 0 < halt_after <= len(self.out):
                 return self.out
@@ -48,7 +52,8 @@ class Intcomp():
             elif instruction == 2:  # MULTIPLY
                 self.code[adjust[2] + self.code[self.ip + 3]] = operands[0] * operands[1]
             elif instruction == 3:  # INPUT
-                self.code[adjust[0] + self.code[self.ip + 1]] = inp
+                self.code[adjust[0] + self.code[self.ip + 1]] = inp[inp_i]
+                inp_i = (inp_i + 1) % len(inp)
             elif instruction == 4:  # OUTPUT
                 self.out.append(operands[0])
             elif instruction == 5:  # JUMP IF TRUE
@@ -59,7 +64,7 @@ class Intcomp():
                 self.code[adjust[2] + self.code[self.ip + 3]] = int(operands[0] < operands[1])
             elif instruction == 8:  # TRUE IF EQUAL
                 self.code[adjust[2] + self.code[self.ip + 3]] = int(operands[0] == operands[1])
-            elif instruction == 9: # INCREASE RELATIVE BASE
+            elif instruction == 9:  # INCREASE RELATIVE BASE
                 self.rel_base += operands[0]
             self.ip += self.num_of_operands[instruction] + 1
 
