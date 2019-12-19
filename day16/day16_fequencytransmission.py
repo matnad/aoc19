@@ -17,17 +17,17 @@ base_pattern = np.array([0, 1, 0, -1])
 for phase in range(1):
     signal = np.asarray([int(x) for x in next_signal])
     next_signal = ''
-    for r in range(4, siglen + 1):
+    for r in range(1, siglen*1000 + 1):
         pattern = np.repeat(base_pattern, r)
         tilefactor = int(np.ceil((siglen*1000 + 1) / len(pattern)))
-        print(tilefactor)
+        # print(tilefactor)
         pattern = np.tile(pattern, tilefactor)
         pattern = pattern[1:siglen*1000+1]
-        print("len pat", len(pattern))
+        # print("len pat", len(pattern))
         patterns = np.split(pattern, 1000)
         patsum = sum(patterns)
         # print(patterns)
-        print(patsum)
+        # print(patsum)
         # print(pattern_offset, signal, pattern[0:siglen], pattern[siglen:2*siglen], pattern[2*siglen:3*siglen])
         # mask = np.zeros(len(pattern), dtype=bool)
         # mask[1:siglen + 1] = True
@@ -36,9 +36,8 @@ for phase in range(1):
         sigxpat = np.matmul(signal, patsum)
         next_digit = abs(sigxpat) % 10
         next_signal += str(next_digit)
-        print(next_signal)
-        break
-    # print(next_signal)
+        # print(next_signal)
+    print(next_signal)
 # puzzle.answer_a =
 
 # ansa = next_signal[0:8]

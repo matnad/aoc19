@@ -39,17 +39,17 @@ in10 = '''.#..##.###...#######
 
 print(in10)
 
-total = 0
+allblocks = 0
 A = defaultdict(bool)
 for y, line in enumerate(in10):
     for x, char in enumerate(line):
         A[(x, y)] = char == '#'
         if char == '#':
-            total += 1
+            allblocks += 1
 W = x+1
 H = y+1
 print(A)
-print(total, x, y)
+print(allblocks, x, y)
 
 
 def project(a, b, d):
@@ -93,7 +93,7 @@ for a, isA in A.items():
     #    print(blocked)
     #    print(len(blocked), total - 1 - len(blocked))
 
-    detected[a] = total - 1 - len(blocked)
+    detected[a] = allblocks - 1 - len(blocked)
     if a == (11,13):
         print(W,H,A)
         print(detected[a], blocked)
@@ -115,7 +115,7 @@ for a, isA in A.items():
 srt = sorted(detected, key=detected.get, reverse=True)
 # print(detected)
 best = srt[0]
-print("total",total)
+print("total", allblocks)
 print(best, detected[best])
 # print(project((0, 0), (3, 1), -2))
 # puzzle.answer_a = detected[best]
