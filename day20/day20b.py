@@ -61,7 +61,6 @@ for pads in portals.values():
             G.add_edge((*outer, i + 1), (*inner, i))
 
 
-ansb = len(nx.shortest_path(G, (*start, 0), (*end, 0))) - 1  # specify that we want to start and end on level 0
+ansb = nx.shortest_path_length(G, (*start, 0), (*end, 0))  # specify that we want to start and end on level 0
 print("Number of steps to get from AA to ZZ on level 0:", ansb)
-# show()
-puzzle.answer_b = ansb
+# puzzle.answer_b = ansb

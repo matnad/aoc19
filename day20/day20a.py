@@ -50,6 +50,6 @@ for pads in portals.values():
     if len(pads) == 2:
         G.add_edge(pads[0], pads[1])  # connect portals
 
-ansa = len(nx.shortest_path(G, start, end)) - 1
+ansa = nx.shortest_path_length(G, start, end)
 print("Number of steps to get from AA to ZZ:", ansa)
 # puzzle.answer_a = ansa
